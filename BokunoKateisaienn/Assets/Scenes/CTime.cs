@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Time : MonoBehaviour
+public class CTime : MonoBehaviour
 {
 
     private Text ClockText;

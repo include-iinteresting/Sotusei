@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class AppUtil
+public static class InputManager
 {
     private static Vector3 TouchPosition = Vector3.zero;
 
