@@ -30,7 +30,7 @@ public struct Destination
 
 public class CCharacter : MonoBehaviour
 {
-    private CharacterState m_eState;   //! キャラクターの状態
+    static public CharacterState m_eState;   //! キャラクターの状態
     public CharacterStatus m_Status;   //! キャラクターのステータス
     public int m_iAddStatusPoint;      //!  増加するステータスのポイント
 
@@ -52,6 +52,8 @@ public class CCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (this.isTimer())
+            Growth();
 
     }
 
@@ -78,12 +80,15 @@ public class CCharacter : MonoBehaviour
         {
             case CharacterState.Play:
                 m_Status.iPlayPoint += m_iAddStatusPoint;
+                Debug.Log(m_Status.iPlayPoint);
                 break;
             case CharacterState.Study:
                 m_Status.iStudyPoint += m_iAddStatusPoint;
+                Debug.Log(m_Status.iStudyPoint);
                 break;
             case CharacterState.Water:
-                m_Status.iStudyPoint += m_iAddStatusPoint;
+                m_Status.iWaterPoint += m_iAddStatusPoint;
+                Debug.Log(m_Status.iWaterPoint);
                 break;
         }
     }
@@ -115,5 +120,15 @@ public class CCharacter : MonoBehaviour
             m_fTimer += Time.deltaTime;
 
         return false;
+    }
+
+    
+    /**
+     * @brief   キャラクターの状態を設定する
+     * @param   [in]    State   設定するキャラクターの状態
+     */
+    static public void SetState(CharacterState State)
+    {
+        m_eState = State;
     }
 }
