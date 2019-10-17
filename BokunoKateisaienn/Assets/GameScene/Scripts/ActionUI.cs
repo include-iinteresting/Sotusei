@@ -11,6 +11,7 @@ public enum SelectState
     SELECT_STUDY = 0x02,
     SELECT_WATER = 0x03,
     SELECT_LIBRARY = 0x04
+
 }
 
 //! 判定の範囲
