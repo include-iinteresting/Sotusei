@@ -36,7 +36,7 @@ public static class InputManager
     {
         if (Application.isEditor)
         {
-            TouchInfo touch = AppUtil.GetTouch();
+            TouchInfo touch = InputManager.GetTouch();
             if (touch != TouchInfo.None) { return Input.mousePosition; }
         }
         else

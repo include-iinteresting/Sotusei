@@ -16,7 +16,8 @@ public class title : MonoBehaviour
         //画面をクリックしたらゲーム開始
         if (Input.GetMouseButtonDown(0))
         {
-            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("GameScene");
+            //UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("GameScene");
+            FadeManager.Instance.LoadScene("GameScene",0.5f);
         }
         
     }
