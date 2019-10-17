@@ -28,6 +28,11 @@ public struct Destination
     public string WaterEvolution;
 }
 
+
+/**
+ * @class   CCharacter
+ * @brief   キャラクタークラス
+ */
 public class CCharacter : MonoBehaviour
 {
     static public CharacterState m_eState;   //! キャラクターの状態
@@ -38,8 +43,12 @@ public class CCharacter : MonoBehaviour
     public float m_fTime;               //! trueを返す時間
     private float m_fTimer;             //! 経過時間をカウントするための変数
 
+    [SerializeField]
+    private string m_strPlayEvolution, m_strStudyEvolution, m_strWaterEvolution; //! 進化先をインスペクターで設定するため
     public Destination m_Destination;   //! 進化先
 
+    [SerializeField]
+    private int m_iNextEvolutionPoint;     //! 次に進化するポイント
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +56,7 @@ public class CCharacter : MonoBehaviour
         m_eState = CharacterState.None;
         m_fTimer = 0;
         InitStatus();
+        InitEvolution();
     }
 
     // Update is called once per frame
@@ -74,6 +84,10 @@ public class CCharacter : MonoBehaviour
         }
     }
 
+
+    /**
+     * @brief   成長に関する処理
+     */
     private void Growth()
     {
         switch (m_eState)
@@ -106,8 +120,20 @@ public class CCharacter : MonoBehaviour
 
 
     /**
+     * @brief   進化先の初期化
+     */
+    private void InitEvolution()
+    {
+        m_Destination.PlayEvolution = m_strPlayEvolution;
+        m_Destination.StudyEvolution = m_strStudyEvolution;
+        m_Destination.WaterEvolution = m_strWaterEvolution;
+    }
+
+
+    /**
      * @brief   数秒置きにtrueを返す
      * @param   [in]    time    trueを返す時間
+     * @return  時間が来たらtrueを返す
      */
     private bool isTimer()
     {
@@ -130,5 +156,25 @@ public class CCharacter : MonoBehaviour
     static public void SetState(CharacterState State)
     {
         m_eState = State;
+    }
+
+
+    /**
+     * @brief   進化の処理
+     */
+     private void Evolution()
+    {
+        if (m_Status.iPlayPoint >= m_iNextEvolutionPoint)
+        {
+            Destroy(this.gameObject);
+        }
+        else if(m_Status.iStudyPoint >= m_iNextEvolutionPoint)
+        {
+            Destroy(this.gameObject);
+        }
+        else if(m_Status.iWaterPoint >= m_iNextEvolutionPoint)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
