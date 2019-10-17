@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //! キャラクターの状態
-public enum CharacterState
+public enum CharacterState : short
 {
-    None = 0,
-    Play = 1,
-    Study = 2,
-    Water = 3,
+    None = 0x00,
+    Play = 0x01,
+    Study = 0x02,
+    Water = 0x03,
 }
 
 
@@ -44,11 +44,11 @@ public class CCharacter : MonoBehaviour
     private float m_fTimer;             //! 経過時間をカウントするための変数
 
     [SerializeField]
-    private string m_strPlayEvolution, m_strStudyEvolution, m_strWaterEvolution; //! 進化先をインスペクターで設定するため
+    private string m_strPlayEvolution = "", m_strStudyEvolution = "", m_strWaterEvolution = ""; //! 進化先をインスペクターで設定するため
     public Destination m_Destination;   //! 進化先
 
     [SerializeField]
-    private int m_iNextEvolutionPoint;     //! 次に進化するポイント
+    private int m_iNextEvolutionPoint = 0;     //! 次に進化するポイント
 
     // Start is called before the first frame update
     void Start()
@@ -75,6 +75,9 @@ public class CCharacter : MonoBehaviour
     {
         switch (m_eState)
         {
+            case CharacterState.None:
+                //Work();
+                break;
             case CharacterState.Play:
                 break;
             case CharacterState.Study:
@@ -94,15 +97,12 @@ public class CCharacter : MonoBehaviour
         {
             case CharacterState.Play:
                 m_Status.iPlayPoint += m_iAddStatusPoint;
-                Debug.Log(m_Status.iPlayPoint);
                 break;
             case CharacterState.Study:
                 m_Status.iStudyPoint += m_iAddStatusPoint;
-                Debug.Log(m_Status.iStudyPoint);
                 break;
             case CharacterState.Water:
                 m_Status.iWaterPoint += m_iAddStatusPoint;
-                Debug.Log(m_Status.iWaterPoint);
                 break;
         }
     }
@@ -156,6 +156,7 @@ public class CCharacter : MonoBehaviour
     static public void SetState(CharacterState State)
     {
         m_eState = State;
+        Debug.Log(m_eState);
     }
 
 

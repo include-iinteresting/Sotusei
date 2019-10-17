@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 //! 選択したUIの状態
-public enum SelectState
+public enum SelectState : short
 {
     SELECT_NONE = 0x00,
     SELECT_PLAY = 0x01,
@@ -31,7 +31,8 @@ struct CollideArea
 public class ActionUI : MonoBehaviour
 {
     private CollideArea m_CollideArea;  //! 判定の範囲
-    public SelectState m_eThisState;    //! このスクリプトをアタッチするUIの種類
+    [SerializeField]
+    private SelectState m_eThisState = SelectState.SELECT_NONE;    //! このスクリプトをアタッチするUIの種類
   
     // Start is called before the first frame update
     void Start()
@@ -58,6 +59,7 @@ public class ActionUI : MonoBehaviour
         {
             //! タッチされた座標を取得
             Vector3 TouchPosition = InputManager.GetTouchPosition();
+
             //! 判定の確認
             if (TouchPosition.x >= m_CollideArea.fx && TouchPosition.y >= m_CollideArea.fy && TouchPosition.x <= m_CollideArea.fwidth && TouchPosition.y <= m_CollideArea.fheight)
             {
