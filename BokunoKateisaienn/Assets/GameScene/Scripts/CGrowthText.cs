@@ -43,6 +43,10 @@ public class CGrowthText : MonoBehaviour
         messageText = GetComponentInChildren<Text>();
         messageText.text = "";
         SetMessage(allMessage);
+        if (allMessage == "")
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+        }
     }
 
     void Update()

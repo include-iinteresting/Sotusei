@@ -50,6 +50,12 @@ public class CCharacter : MonoBehaviour
     [SerializeField]
     private int m_iNextEvolutionPoint = 0;     //! 次に進化するポイント
 
+    [SerializeField]
+    private float m_fWalkDistance;  //! 歩く距離
+    public float m_fWalkTime;       //! 歩く時間
+    private float m_fWalkVelocity;  //! 歩く速度
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +63,8 @@ public class CCharacter : MonoBehaviour
         m_fTimer = 0;
         InitStatus();
         InitEvolution();
+
+        m_fWalkVelocity = m_fWalkDistance / m_fWalkTime;    //! 歩く速度を求める
     }
 
     // Update is called once per frame
@@ -76,7 +84,7 @@ public class CCharacter : MonoBehaviour
         switch (m_eState)
         {
             case CharacterState.None:
-                //Work();
+                //Walk();
                 break;
             case CharacterState.Play:
                 break;
@@ -85,6 +93,14 @@ public class CCharacter : MonoBehaviour
             case CharacterState.Water:
                 break;
         }
+    }
+
+
+    /**
+     * @brief   歩き
+     */
+     private void walk()
+    {
     }
 
 

@@ -38,7 +38,6 @@ public class ActionUI : MonoBehaviour
     void Start()
     {
         InitCollideArea();  //! 判定範囲の初期化
-        
     }
 
 
@@ -59,9 +58,12 @@ public class ActionUI : MonoBehaviour
         {
             //! タッチされた座標を取得
             Vector3 TouchPosition = InputManager.GetTouchPosition();
-
             //! 判定の確認
-            if (TouchPosition.x >= m_CollideArea.fx && TouchPosition.y >= m_CollideArea.fy && TouchPosition.x <= m_CollideArea.fwidth && TouchPosition.y <= m_CollideArea.fheight)
+            if (TouchPosition.x >= m_CollideArea.fx &&
+                TouchPosition.y >= m_CollideArea.fy &&
+                TouchPosition.x <= m_CollideArea.fx + m_CollideArea.fwidth &&
+                TouchPosition.y <= m_CollideArea.fy + m_CollideArea.fheight
+                )
             {
                 switch(m_eThisState)
                 {
@@ -73,6 +75,8 @@ public class ActionUI : MonoBehaviour
                         break;
                     case SelectState.SELECT_WATER:
                         CCharacter.SetState(CharacterState.Water);
+                        break;
+                    default:
                         break;
                 }
             }

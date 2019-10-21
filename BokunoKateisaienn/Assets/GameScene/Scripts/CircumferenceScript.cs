@@ -29,7 +29,7 @@ public class CircumferenceScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3(Mathf.Cos(fAngle) * fRadiusX, Mathf.Sin(fAngle) * fRadiusY + fCenterY, -1);
+        transform.position = new Vector3(Mathf.Cos(fAngle) * fRadiusX, Mathf.Sin(fAngle) * fRadiusY + fCenterY, 1);
         fVelocity = 6.28f / OnedayHour;
     }
 
@@ -48,7 +48,7 @@ public class CircumferenceScript : MonoBehaviour
         else
             fAngle = fVelocity * (iHour + 6);
       
-        transform.position = new Vector3(Mathf.Cos(fAngle) * fRadiusX, Mathf.Sin(fAngle) * fRadiusY + fCenterY, -1);
+        transform.position = new Vector3(Mathf.Cos(fAngle) * fRadiusX, Mathf.Sin(fAngle) * fRadiusY + fCenterY, 1);
     }
 
     /**
