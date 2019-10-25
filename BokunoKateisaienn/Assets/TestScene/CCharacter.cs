@@ -18,6 +18,7 @@ public struct CharacterStatus
     public int iPlayPoint;
     public int iStudyPoint;
     public int iWaterPoint;
+    public bool bFlag;
 }
 
 //! 進化先
@@ -35,34 +36,36 @@ public struct Destination
  */
 public class CCharacter : MonoBehaviour
 {
-    static public CharacterState m_eState;   //! キャラクターの状態
-    public CharacterStatus m_Status;   //! キャラクターのステータス
-    public int m_iAddStatusPoint;      //!  増加するステータスのポイント
+    [SerializeField]
+    private int m_iCharacterID;             //! キャラクターID
+    static public CharacterState m_eState;  //! キャラクターの状態
+    private CharacterStatus m_Status;       //! キャラクターのステータス
+    public int m_iAddStatusPoint;           //!  増加するステータスのポイント
 
 
-    public float m_fTime;               //! trueを返す時間
-    private float m_fTimer;             //! 経過時間をカウントするための変数
+    public float m_fTime;                   //! trueを返す時間
+    private float m_fTimer;                 //! 経過時間をカウントするための変数
 
     [SerializeField]
     private string m_strPlayEvolution = "", m_strStudyEvolution = "", m_strWaterEvolution = ""; //! 進化先をインスペクターで設定するため
-    public Destination m_Destination;   //! 進化先
+    public Destination m_Destination;       //! 進化先
 
     [SerializeField]
-    private int m_iNextEvolutionPoint = 0;     //! 次に進化するポイント
+    private int m_iNextEvolutionPoint = 0;  //! 次に進化するポイント
 
     [SerializeField]
-    private float m_fWalkDistance;  //! 歩く距離
-    public float m_fWalkTime;       //! 歩く時間
-    private float m_fWalkVelocity;  //! 歩く速度
+    private float m_fWalkDistance;          //! 歩く距離
+    public float m_fWalkTime;               //! 歩く時間
+    private float m_fWalkVelocity;          //! 歩く速度
 
 
     // Start is called before the first frame update
     void Start()
     {
-        m_eState = CharacterState.None;
-        m_fTimer = 0;
-        InitStatus();
-        InitEvolution();
+        m_eState = CharacterState.None; //! キャラクターの状態を初期化する
+        m_fTimer = 0;                   //! カウントタイマーの初期化
+        InitStatus();                   //! ステータスの初期化
+        InitEvolution();                //! 進化に関するデータの初期化
 
         m_fWalkVelocity = m_fWalkDistance / m_fWalkTime;    //! 歩く速度を求める
     }
@@ -132,6 +135,7 @@ public class CCharacter : MonoBehaviour
         m_Status.iPlayPoint = 0;
         m_Status.iStudyPoint = 0;
         m_Status.iWaterPoint = 0;
+        m_Status.bFlag = true;
     }
 
 

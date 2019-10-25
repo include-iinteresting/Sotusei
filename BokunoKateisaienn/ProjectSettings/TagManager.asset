@@ -41,3 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Back
+    uniqueID: 804913091
+    locked: 0
+  - name: "Sun\u30FBMoon"
+    uniqueID: 4038925835
+    locked: 0
+  - name: Mountain
+    uniqueID: 2943118881
+    locked: 0
+  - name: Field
+    uniqueID: 705775117
+    locked: 0
+  - name: Character
+    uniqueID: 4051230933
+    locked: 0
