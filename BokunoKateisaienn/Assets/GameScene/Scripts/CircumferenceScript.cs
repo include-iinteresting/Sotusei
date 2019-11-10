@@ -11,7 +11,11 @@ public class CircumferenceScript : MonoBehaviour
 
 
     //! 1日の時間
+    [SerializeField]
     private float OnedayHour = 24.0f;
+    //! 経過時間
+    private float m_fTime;
+
     //! 太陽・月の角度
     private float fAngle;
             
@@ -31,6 +35,7 @@ public class CircumferenceScript : MonoBehaviour
     {
         transform.position = new Vector3(Mathf.Cos(fAngle) * fRadiusX, Mathf.Sin(fAngle) * fRadiusY + fCenterY, 0);
         fVelocity = 6.28f / OnedayHour;
+        m_fTime = 0;
     }
 
     // Update is called once per frame
@@ -40,13 +45,14 @@ public class CircumferenceScript : MonoBehaviour
         transform.Rotate(new Vector3(0, 0, fRotateSpeed));
 
         //!<    時間の取得
-        int iHour = System.DateTime.Now.Hour;
+        //int iHour = System.DateTime.Now.Hour;
+        m_fTime = Time.time;
 
         //!<    時間に応じた移動
         if (bSun)
-            fAngle = fVelocity * (iHour - 6);
+            fAngle = fVelocity * (m_fTime - OnedayHour * 0.25f);
         else
-            fAngle = fVelocity * (iHour + 6);
+            fAngle = fVelocity * (m_fTime + OnedayHour * 0.25f);
       
         transform.position = new Vector3(Mathf.Cos(fAngle) * fRadiusX, Mathf.Sin(fAngle) * fRadiusY + fCenterY, 0);
     }

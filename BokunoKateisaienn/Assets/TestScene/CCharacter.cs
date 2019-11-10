@@ -39,9 +39,14 @@ public class CCharacter : MonoBehaviour
     [SerializeField]
     private int m_iCharacterID;             //! キャラクターID
     static public CharacterState m_eState;  //! キャラクターの状態
-    private CharacterStatus m_Status;       //! キャラクターのステータス
+    static public CharacterStatus m_Status; //! キャラクターのステータス
     public int m_iAddStatusPoint;           //!  増加するステータスのポイント
 
+    [SerializeField]
+    [TextArea(1, 20)]
+    private string m_strCharacterText;      //! オブジェクト生成時にキャラクターが喋るテキスト
+    [SerializeField]
+    private GameObject m_TextObject;        //! テキストのオブジェクト
 
     public float m_fTime;                   //! trueを返す時間
     private float m_fTimer;                 //! 経過時間をカウントするための変数
@@ -49,6 +54,7 @@ public class CCharacter : MonoBehaviour
     [SerializeField]
     private string m_strPlayEvolution = "", m_strStudyEvolution = "", m_strWaterEvolution = ""; //! 進化先をインスペクターで設定するため
     public Destination m_Destination;       //! 進化先
+    private GameObject m_EvolutionObject;   //! 進化先のオブジェクト
 
     [SerializeField]
     private int m_iNextEvolutionPoint = 0;  //! 次に進化するポイント
@@ -58,7 +64,6 @@ public class CCharacter : MonoBehaviour
     public float m_fWalkTime;               //! 歩く時間
     private float m_fWalkVelocity;          //! 歩く速度
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -66,6 +71,7 @@ public class CCharacter : MonoBehaviour
         m_fTimer = 0;                   //! カウントタイマーの初期化
         InitStatus();                   //! ステータスの初期化
         InitEvolution();                //! 進化に関するデータの初期化
+        InitText();                     //! セリフの初期化
 
         m_fWalkVelocity = m_fWalkDistance / m_fWalkTime;    //! 歩く速度を求める
     }
@@ -150,6 +156,16 @@ public class CCharacter : MonoBehaviour
     }
 
 
+    /*
+     * @brief   テキスト表示の初期化
+     */
+     private void InitText()
+    {
+        CGrowthText GrowthText = m_TextObject.GetComponent<CGrowthText>();
+        GrowthText.SetMessagePanel(m_strCharacterText);
+    }
+
+
     /**
      * @brief   数秒置きにtrueを返す
      * @param   [in]    time    trueを返す時間
@@ -187,15 +203,36 @@ public class CCharacter : MonoBehaviour
     {
         if (m_Status.iPlayPoint >= m_iNextEvolutionPoint)
         {
+            m_EvolutionObject = (GameObject)Resources.Load(m_strPlayEvolution);
             Destroy(this.gameObject);
         }
         else if(m_Status.iStudyPoint >= m_iNextEvolutionPoint)
         {
+            m_EvolutionObject = (GameObject)Resources.Load(m_strStudyEvolution);
             Destroy(this.gameObject);
         }
         else if(m_Status.iWaterPoint >= m_iNextEvolutionPoint)
         {
+            m_EvolutionObject = (GameObject)Resources.Load(m_strWaterEvolution);
             Destroy(this.gameObject);
         }
+    }
+
+
+    /**
+     * @brief   ステータスポイントの取得
+     */
+     static public CharacterStatus GetStatusPoint()
+    {
+        return m_Status;
+    }
+
+
+    /**
+     * 
+     */
+    void    SetPictureBook()
+    {
+        Database.StorePictureBook(m_iCharacterID, m_Status);
     }
 }
